@@ -1,12 +1,16 @@
 [![GitHub CI](https://github.com/vlsi/sigstore-gradle-draft/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/vlsi/sigstore-gradle-draft/actions/workflows/build.yml)
 
-sigstore-gradle
----------------
+## sigstore-gradle
 
 A Gradle plugin for signing artifacts with Sigstore.
 
-Requirements
-------------
+## The current version
+
+`dev.sigstore.sign` has no releases yet: the dependency https://github.com/sigstore/sigstore-java should be released first.
+
+Signature format uses [Sigstore bundle](https://github.com/sigstore/cosign/pull/2204) JSON which is still experimental.
+
+## Requirements
 
 Java 11 (https://github.com/sigstore/sigstore-java requires Java 11)
 Gradle 7.5 (Gradle 6 could be supported once https://github.com/jsonschema2dataclass/js2d-gradle/issues/401 is released)
