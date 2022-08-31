@@ -55,17 +55,42 @@ sigstoreSign {
 
 ## How to
 
+### Sign Maven publications
+
+```kotlin
+plugins {
+    id("dev.sigstore.sign")
+}
+// Default configuration signs Maven publications
+```
+
+### Skip signing Maven publications
+
+If you want to avoid automatic signing, consider using `dev.sigstore.sign-base` plugin:
+
+```kotlin
+plugins {
+    id("dev.sigstore.sign-base")
+}
+
+// Configure SigstoreSignFilesTask tasks as you need
+```
+
 ### Sign a single file
 
 ```kotlin
+plugins {
+    id("dev.sigstore.sign-base")
+}
+
 dev.sigstore.sign.tasks.SigstoreSignFilesTask
 
-val helloProps by tasks.register<WriteProperties> {
+val helloProps by tasks.registering(WriteProperties::class) {
     outputFile = file("build/helloProps.txt")
     property("helloProps", "world")
 }
 
-val signHelloProps by tasks.register<SigstoreSignFilesTask> {
+val signHelloProps by tasks.registering(SigstoreSignFilesTask::class) {
     // outputFile is File, so helloProps.map {..} is Provider<File>
     signFile(helloProps.map { it.outputFile })
     // Alternative APIs are
@@ -73,7 +98,7 @@ val signHelloProps by tasks.register<SigstoreSignFilesTask> {
     // sign(Provider<RegularFile>)
 }
 
-val zip by tasks.regster<Zip> {
+val zip by tasks.registering(Zip::class) {
     from(signHelloProps.map { it.singleSignature() })
 }
 ```
