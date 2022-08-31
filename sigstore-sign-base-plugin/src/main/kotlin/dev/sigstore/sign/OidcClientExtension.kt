@@ -38,6 +38,10 @@ abstract class OidcClientExtension @Inject constructor(
 
     abstract val client: Property<OidcClientConfiguration>
 
+    fun client(client: OidcClientConfiguration) {
+        this.client.set(client)
+    }
+
     init {
         clients.registerBinding(WebOidc::class.java, WebOidc::class.java)
         clients.registerBinding(GitHubActionsOidc::class.java, GitHubActionsOidc::class.java)
@@ -55,18 +59,20 @@ abstract class OidcClientExtension @Inject constructor(
     }
 
     private inline fun <reified T : OidcClientConfiguration> setup(
-        name: String, configure: Action<T>?
-    ) {
+        name: String, configure: Action<T>? = null
+    ) : NamedDomainObjectProvider<T> =
         if (clients.findByName(name) == null) {
             clients.register<T>(name)
+        } else {
+            clients.named<T>(name)
+        }.apply {
+            if (configure != null) {
+                configure(configure)
+            }
         }
-        clients.named<T>(name) {
-            configure?.execute(this)
-        }
-    }
 
     val web: NamedDomainObjectProvider<WebOidc>
-        get() = clients.named<WebOidc>(WEB_CLIENT_NAME)
+        get() = setup(WEB_CLIENT_NAME)
 
     @JvmOverloads
     fun web(configure: Action<WebOidc>? = null) {
@@ -74,7 +80,7 @@ abstract class OidcClientExtension @Inject constructor(
     }
 
     val gitHub: NamedDomainObjectProvider<GitHubActionsOidc>
-        get() = clients.named<GitHubActionsOidc>(GITHUB_ACTIONS_CLIENT_NAME)
+        get() = setup(GITHUB_ACTIONS_CLIENT_NAME)
 
     @JvmOverloads
     fun gitHub(configure: Action<GitHubActionsOidc>? = null) {

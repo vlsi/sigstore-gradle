@@ -47,6 +47,8 @@ sigstoreSign {
         // By default, gitHub client is used if ACTIONS_ID_TOKEN_REQUEST_URL environment variable exists
         // This setting would enforce web OIDC client
         client.set(web)
+        // or
+        client(web)
     }
 }
 ```
