@@ -11,7 +11,7 @@ Requirements
 Java 11 (https://github.com/sigstore/sigstore-java requires Java 11)
 Gradle 7.5 (Gradle 6 could be supported once https://github.com/jsonschema2dataclass/js2d-gradle/issues/401 is released)
 
-## Minimail usage
+## Minimal usage
 
 ```kotlin
 plugins {
@@ -104,6 +104,13 @@ val zip by tasks.registering(Zip::class) {
 ```
 
 ## Technical details
+
+### Signature format
+
+The signature uses [Sigstore bundle](https://github.com/sigstore/cosign/pull/2204) JSON
+stored as `.sigstore` file.
+
+The file includes all the information for offline signature verification.
 
 ### dev.sigstore.sign plugin
 
