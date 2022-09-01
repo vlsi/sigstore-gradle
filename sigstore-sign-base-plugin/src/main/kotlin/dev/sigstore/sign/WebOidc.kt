@@ -31,7 +31,7 @@ abstract class WebOidc @Inject constructor() : OidcClientConfiguration, Serializ
         issuer.convention(WebOidcClient.PUBLIC_DEX_ISSUER)
     }
 
-    override fun build(): WebOidcClient =
+    override fun build(): Any =
         WebOidcClient.builder()
             .setClientId(clientId.get())
             .setIssuer(issuer.get())

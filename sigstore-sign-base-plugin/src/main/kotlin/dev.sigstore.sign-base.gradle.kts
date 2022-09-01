@@ -20,13 +20,16 @@ import dev.sigstore.sign.SigstoreSignExtension
 inline fun <reified T: Named> AttributeContainer.attribute(attr: Attribute<T>, value: String) =
     attribute(attr, objects.named<T>(value))
 
+val sigstoreSign = extensions.create("sigstoreSign", SigstoreSignExtension::class, project)
+
 val sigstoreClient by configurations.creating {
     description = "Declares sigstore client dependencies"
     isCanBeResolved = false
     isCanBeConsumed = false
     defaultDependencies {
-        // TODO: un-comment one sigstore-java is released
-        // add(project.dependencies.create("dev.sigstore:sigstore-java:1.0"))
+        // Default dependency
+        val version = sigstoreSign.sigstoreJavaVersion.get()
+        add(project.dependencies.create("dev.sigstore:sigstore-java:$version"))
     }
 }
 
@@ -42,5 +45,3 @@ val sigstoreClientClasspath by configurations.creating {
         attribute(Bundling.BUNDLING_ATTRIBUTE, Bundling.EXTERNAL)
     }
 }
-
-val sigstoreSign = extensions.create("sigstoreSign", SigstoreSignExtension::class, project)

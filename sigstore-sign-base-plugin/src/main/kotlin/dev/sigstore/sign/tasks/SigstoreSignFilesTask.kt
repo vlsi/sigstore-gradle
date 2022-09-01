@@ -120,6 +120,7 @@ abstract class SigstoreSignFilesTask : DefaultTask() {
 
     @TaskAction
     protected fun sign() {
+        println("cp: ${sigstoreClientClasspath.files.toList().joinToString("\n")}")
         workerExecutor
             .classLoaderIsolation { classpath.from(sigstoreClientClasspath) }
             .run {

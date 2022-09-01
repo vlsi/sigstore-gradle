@@ -3,8 +3,6 @@ plugins {
     id("org.gradle.kotlin.kotlin-dsl") // this is 'kotlin-dsl' without version
 }
 
-group = "dev.sigstore.sigstore-gradle.buildlogic"
-
 java {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11

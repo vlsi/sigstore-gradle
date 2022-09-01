@@ -22,6 +22,7 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.DomainObjectCollection
 import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionAware
+import org.gradle.api.provider.Property
 import org.gradle.api.publish.Publication
 import org.gradle.api.publish.PublicationArtifact
 import org.gradle.api.publish.internal.PublicationInternal
@@ -31,11 +32,14 @@ import org.gradle.kotlin.dsl.register
 import org.gradle.kotlin.dsl.the
 import kotlin.collections.set
 
-open class SigstoreSignExtension(private val project: Project) {
+abstract class SigstoreSignExtension(private val project: Project) {
     private val Publication.signingTaskName: String
         get() = "sigstoreSign${name.titlecase()}Publication"
 
+    abstract val sigstoreJavaVersion : Property<String>
+
     init {
+        sigstoreJavaVersion.convention("0.1.0")
         (this as ExtensionAware).extensions.create<OidcClientExtension>(
             "oidcClient",
             project.objects,

@@ -27,7 +27,7 @@ abstract class GitHubActionsOidc @Inject constructor() : OidcClientConfiguration
         audience.convention("sigstore")
     }
 
-    override fun build(): GithubActionsOidcClient =
+    override fun build(): Any =
         GithubActionsOidcClient.builder()
             .audience(audience.get())
             .build()

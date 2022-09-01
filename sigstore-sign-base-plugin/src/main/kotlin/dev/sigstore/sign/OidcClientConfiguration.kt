@@ -16,9 +16,12 @@
  */
 package dev.sigstore.sign
 
-import dev.sigstore.oidc.client.OidcClient
 import org.gradle.api.Named
 
 interface OidcClientConfiguration : Named {
-    fun build(): OidcClient
+    /**
+     * Creates OidcClient. The return type is [Any]
+     * since plugin code has only `compileOny` dependency on `sigstore-java`.
+     */
+    fun build(): Any
 }

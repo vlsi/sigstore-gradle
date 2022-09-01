@@ -32,6 +32,9 @@ class SigstoreSignTest: BaseGradleTest() {
                 id("java")
                 id("dev.sigstore.sign-base")
             }
+            repositories {
+                mavenCentral()
+            }
             group = "dev.sigstore.test"
             def helloProps = tasks.register("helloProps", WriteProperties) {
                 outputFile = file("build/helloProps.txt")

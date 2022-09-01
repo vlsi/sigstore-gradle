@@ -18,6 +18,7 @@ package dev.sigstore.sign.work
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import dev.sigstore.KeylessSigner
+import dev.sigstore.oidc.client.OidcClient
 import dev.sigstore.sign.OidcClientConfiguration
 import dev.sigstore.sign.bundle.*
 import org.gradle.api.file.RegularFileProperty
@@ -43,7 +44,7 @@ abstract class SignWorkAction : WorkAction<SignWorkParameters> {
 
         val signer = KeylessSigner.builder().apply {
             sigstorePublicDefaults()
-            oidcClient(parameters.oidcClient.get().build())
+            oidcClient(parameters.oidcClient.get().build() as OidcClient)
         }.build()
 
         val result = signer.sign(inputFile.toPath())

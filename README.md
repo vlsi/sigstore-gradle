@@ -37,7 +37,7 @@ plugins {
 
 dependencies {
     // Override sigstore-java clients
-    sigstoreClient("dev.sigstore:sigstore-java:1.1")
+    sigstoreClient("dev.sigstore:sigstore-java:0.1.0")
 }
 
 sigstoreSign {
