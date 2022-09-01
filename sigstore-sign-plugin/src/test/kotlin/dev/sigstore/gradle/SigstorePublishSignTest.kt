@@ -76,5 +76,16 @@ class SigstorePublishSignTest : BaseGradleTest() {
         assertThat(projectDir.resolve("build/tmp-repo/dev/sigstore/test/sigstore-test/1.0/sigstore-test-1.0.module.sigstore"))
             .content()
             .basicSigstoreStructure()
+
+        if (configurationCache == ConfigurationCache.ON) {
+            val result = prepare(gradleVersion, "publishAllPublicationsToTmpRepository", "-s")
+                .build()
+
+            assertThat(result.output)
+                .contains(
+                    "Configuration cache entry reused",
+                    "6 actionable tasks: 4 executed, 2 up-to-date",
+                )
+        }
     }
 }

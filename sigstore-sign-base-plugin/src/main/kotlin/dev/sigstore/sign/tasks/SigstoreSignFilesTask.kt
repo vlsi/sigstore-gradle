@@ -84,11 +84,6 @@ abstract class SigstoreSignFilesTask : DefaultTask() {
         signatureDirectory.convention(
             layout.buildDirectory.dir("sigstore/$name")
         )
-        dependsOn(
-            providers.provider {
-                signatures.mapNotNull { it.builtBy.orNull }
-            }
-        )
     }
 
     /**
@@ -113,7 +108,7 @@ abstract class SigstoreSignFilesTask : DefaultTask() {
     fun sign(file: Provider<RegularFile>, builtBy: Buildable? = null): SigstoreSignature =
         signatures.create(file.get().asFile.name) {
             this.file.set(file)
-            this.builtBy.set(builtBy)
+            builtBy?.let { builtBy(it) }
             this.signatureDirectory.convention(this@SigstoreSignFilesTask.signatureDirectory)
         }
 

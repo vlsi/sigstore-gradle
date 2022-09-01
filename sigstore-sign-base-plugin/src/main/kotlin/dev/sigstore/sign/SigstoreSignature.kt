@@ -16,11 +16,10 @@
  */
 package dev.sigstore.sign
 
-import org.gradle.api.Buildable
 import org.gradle.api.Named
+import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.RegularFileProperty
-import org.gradle.api.provider.Property
 import org.gradle.api.tasks.*
 import javax.inject.Inject
 
@@ -37,8 +36,33 @@ abstract class SigstoreSignature @Inject constructor(private val name: String) :
     @get:PathSensitive(PathSensitivity.NONE)
     abstract val file: RegularFileProperty
 
+    /**
+     * Adds the given build dependencies.
+     */
+    fun builtBy(vararg tasks: Any) {
+        buildDependencyTracker.builtBy(tasks)
+    }
+
+    /**
+     * Sets the given build dependencies.
+     */
+    fun setBuiltBy(tasks: Iterable<Any>) {
+        buildDependencyTracker.setBuiltBy(tasks)
+    }
+
     @get:Internal
-    abstract val builtBy: Property<Buildable>
+    var builtBy: Set<Any>
+        get() = buildDependencyTracker.builtBy
+        set(value) {
+           setBuiltBy(value)
+        }
+
+    /**
+     * This property is here for tracking build dependencies.
+     * See https://github.com/gradle/gradle/issues/21828.
+     */
+    @get:InputFiles
+    protected abstract val buildDependencyTracker: ConfigurableFileCollection
 
     @get:OutputFile
     abstract val outputSignature: RegularFileProperty

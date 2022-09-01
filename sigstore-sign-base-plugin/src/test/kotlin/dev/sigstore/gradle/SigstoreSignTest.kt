@@ -54,5 +54,16 @@ class SigstoreSignTest: BaseGradleTest() {
         assertThat(projectDir.resolve("build/helloProps.txt.sigstore"))
             .content()
             .basicSigstoreStructure()
+
+        if (configurationCache == ConfigurationCache.ON) {
+            val result = prepare(gradleVersion, "signFile", "-s")
+                .build()
+
+            assertThat(result.output)
+                .contains(
+                    "Configuration cache entry reused",
+                    "2 actionable tasks: 1 executed, 1 up-to-date",
+                )
+        }
     }
 }

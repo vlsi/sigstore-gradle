@@ -95,13 +95,13 @@ open class SigstoreSignExtension(private val project: Project) {
             val publishableArtifact = this
             signTask.configure {
                 signatures.findByName(file.name)
-                    ?.takeIf { it.builtBy == publishableArtifact }
+                    ?.takeIf { publishableArtifact in it.builtBy  }
                     ?.let {
                         signatures.remove(it)
                         return@configure
                     }
                 // Slow path just in case
-                signatures.removeIf { it.builtBy == publishableArtifact }
+                signatures.removeIf { publishableArtifact in it.builtBy }
             }
             val artifact = artifacts.remove(publishableArtifact)
             publication.removeDerivedArtifact(artifact)

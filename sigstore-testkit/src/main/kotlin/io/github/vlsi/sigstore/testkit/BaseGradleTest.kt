@@ -41,15 +41,12 @@ open class BaseGradleTest {
         @JvmStatic
         private fun gradleVersionAndSettings(): Iterable<Arguments> {
             if (!isCI) {
-                // Use only the minimum supported Gradle version to make the test faster
+                // Make the test faster, and skip extra tests with the configuration cache to reduce OIDC flows
                 return listOf(arguments("7.5.1", ConfigurationCache.OFF))
             }
             return mutableListOf<Arguments>().apply {
+                add(arguments("7.5.1", ConfigurationCache.ON))
                 add(arguments("7.5.1", ConfigurationCache.OFF))
-                // Configuration cache is not supported yet since
-                // Task `:sigstoreSignMavenPublication` of type `dev.sigstore.sign.tasks.SigstoreSignFilesTask`:
-                // cannot serialize object of type 'org.gradle.api.publish.maven.tasks.GenerateMavenPom',
-                // a subtype of 'org.gradle.api.Task', as these are not supported with the configuration cache.
             }
         }
     }
