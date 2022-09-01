@@ -33,6 +33,10 @@ class SigstorePublishSignTest : BaseGradleTest() {
                 id("maven-publish")
                 id("dev.sigstore.sign")
             }
+            repositories {
+                mavenCentral()
+            }
+
             group = "dev.sigstore.test"
             java {
                 withSourcesJar()

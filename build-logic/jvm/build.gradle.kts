@@ -5,8 +5,6 @@ plugins {
     id("buildlogic.kotlin-dsl-gradle-plugin")
 }
 
-group = "dev.sigstore.sigstore-gradle.buildlogic2"
-
 repositories {
     gradlePluginPortal()
 }

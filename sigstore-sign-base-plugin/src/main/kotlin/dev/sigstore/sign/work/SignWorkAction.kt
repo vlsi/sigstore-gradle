@@ -43,7 +43,7 @@ abstract class SignWorkAction : WorkAction<SignWorkParameters> {
 
         val signer = KeylessSigner.builder().apply {
             sigstorePublicDefaults()
-            oidcClient(parameters.oidcClient.get().build())
+//            oidcClient(parameters.oidcClient.get().build())
         }.build()
 
         val result = signer.sign(inputFile.toPath())

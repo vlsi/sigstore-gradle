@@ -3,10 +3,10 @@ plugins {
     id("buildlogic.test-junit5")
 }
 
-group = "dev.sigstore"
+description = "Gradle plugin with the base set of tasks and configurations for Sigstore singing (no signing is done by default)"
 
 dependencies {
-    implementation("dev.sigstore:sigstore-java")
+    compileOnly("dev.sigstore:sigstore-java:_")
     implementation("com.fasterxml.jackson.core:jackson-databind:_")
 
     testImplementation(project(":sigstore-testkit"))
