@@ -34,9 +34,3 @@ include("sigstore-testkit")
 include("sigstore-sign-plugin")
 include("sigstore-sign-base-plugin")
 
-gitRepositories {
-    include("sigstore-java") {
-        uri.set("https://github.com/sigstore/sigstore-java.git")
-        commit.set("692c8b9fc063f68a3c4946f61c859832904a6e2c")
-    }
-}

@@ -5,7 +5,7 @@ plugins {
     id("maven-publish")
 }
 
-val repoUrl = "https://github.com/vlsi/sigstore-gradle-draft"
+val repoUrl = "https://github.com/vlsi/sigstore-gradle"
 
 publishing {
     publications.withType<MavenPublication> {
@@ -22,7 +22,10 @@ publishing {
         }
         pom {
             cleanupMavenPom()
-            name.set(project.description)
+            name.set(
+                (project.findProperty("artifact.name") as? String)
+                    ?: project.name
+            )
             description.set(project.description)
             inceptionYear.set("2017")
             url.set(repoUrl)

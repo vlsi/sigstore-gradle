@@ -25,8 +25,7 @@ val sigstoreClient by configurations.creating {
     isCanBeResolved = false
     isCanBeConsumed = false
     defaultDependencies {
-        // TODO: un-comment one sigstore-java is released
-        // add(project.dependencies.create("dev.sigstore:sigstore-java:1.0"))
+        add(project.dependencies.create("dev.sigstore:sigstore-java:0.1.0"))
     }
 }
 

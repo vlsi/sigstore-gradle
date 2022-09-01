@@ -120,6 +120,7 @@ abstract class SigstoreSignFilesTask : DefaultTask() {
 
     @TaskAction
     protected fun sign() {
+        println("cp: ${sigstoreClientClasspath.files.toList().joinToString("\n")}")
         workerExecutor
             .classLoaderIsolation { classpath.from(sigstoreClientClasspath) }
             .run {
@@ -127,7 +128,7 @@ abstract class SigstoreSignFilesTask : DefaultTask() {
                     submit(SignWorkAction::class.java) {
                         inputFile.set(signature.file)
                         outputSignature.set(signature.outputSignature)
-                        oidcClient.set(this@SigstoreSignFilesTask.oidcClient.get())
+                        //oidcClient.set(this@SigstoreSignFilesTask.oidcClient.get())
                     }
                 }
                 await()

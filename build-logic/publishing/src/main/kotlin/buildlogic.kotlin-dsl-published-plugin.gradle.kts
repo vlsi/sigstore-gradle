@@ -6,5 +6,4 @@ plugins {
     id("buildlogic.reproducible-builds")
     id("buildlogic.dokka-javadoc")
     id("buildlogic.publish-to-central")
-    id("buildlogic.pgp-signing")
 }
