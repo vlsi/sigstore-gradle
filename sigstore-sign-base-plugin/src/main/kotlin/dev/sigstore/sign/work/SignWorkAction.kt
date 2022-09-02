@@ -25,6 +25,7 @@ import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Property
 import org.gradle.workers.WorkAction
 import org.gradle.workers.WorkParameters
+import org.slf4j.LoggerFactory
 import java.util.*
 
 abstract class SignWorkParameters : WorkParameters {
@@ -36,11 +37,15 @@ abstract class SignWorkParameters : WorkParameters {
 private val jsonMapper = ObjectMapper().writerWithDefaultPrettyPrinter()
 
 abstract class SignWorkAction : WorkAction<SignWorkParameters> {
+    companion object {
+        val logger = LoggerFactory.getLogger(SignWorkAction::class.java)
+    }
+
     abstract val parameters: SignWorkParameters
 
     override fun execute() {
         val inputFile = parameters.inputFile.get().asFile
-        println("Signing $inputFile in Sigstore")
+        logger.info("Signing in Sigstore: {}", inputFile)
 
         val signer = KeylessSigner.builder().apply {
             sigstorePublicDefaults()
