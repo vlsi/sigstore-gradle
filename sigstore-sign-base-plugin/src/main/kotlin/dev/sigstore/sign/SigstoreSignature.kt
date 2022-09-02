@@ -62,6 +62,7 @@ abstract class SigstoreSignature @Inject constructor(private val name: String) :
      * See https://github.com/gradle/gradle/issues/21828.
      */
     @get:InputFiles
+    @get:PathSensitive(PathSensitivity.NONE)
     protected abstract val buildDependencyTracker: ConfigurableFileCollection
 
     @get:OutputFile
