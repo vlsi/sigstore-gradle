@@ -1,5 +1,9 @@
 [![GitHub CI](https://github.com/vlsi/sigstore-gradle-draft/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/vlsi/sigstore-gradle-draft/actions/workflows/build.yml)
 
+# Archived
+
+Development moved to https://github.com/sigstore/sigstore-java
+
 ## sigstore-gradle
 
 A Gradle plugin for signing artifacts with Sigstore.
